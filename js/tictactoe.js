@@ -38,6 +38,7 @@ $(document).ready(function() {
       html = "<div id='"+ i.toString() +"' class='box'></div>";
       board.append(html);
     }
+    h2.html("It is " + currentTurn + "'s turn.").hide().fadeIn("fast");
   }
 
   // Update the HTML and boardArray with move and switch players
