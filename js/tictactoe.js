@@ -1,6 +1,7 @@
 $(document).ready(function() {
 
   var board = $(".board");
+  var h2 = $("h2");
   var html = "";
   var moveCnt = 0;
 
@@ -28,6 +29,7 @@ $(document).ready(function() {
 
   // Initialize TicTacToe game
   function Initialize() {
+    currentTurn = "X";
     win = false;
     moveCnt = 0;
     boardArray = ["", "", "", "", "", "", "", "", ""];
@@ -48,26 +50,29 @@ $(document).ready(function() {
       boardArray[intId] = currentTurn;
       console.log(boardArray);
       checkMove();
-      if (currentTurn === "X") {
-        currentTurn = "O";
-      } else {
-        currentTurn = "X";
-      }
     } else {
       alert ("Spot has already been taken. Choose another.");
     }
   }
 
-  // Check the board to see if the move just made won
+  // Check the board to see if the move just made won or draw
   function checkMove() {
     for (var i = 0; i < winConditions.length; i++) {
       if (boardArray[winConditions[i][0]] === currentTurn && boardArray[winConditions[i][0]] === boardArray[winConditions[i][1]] && boardArray[winConditions[i][1]] === boardArray[winConditions[i][2]]) {
         win = true;
-        alert(currentTurn + " has won!");
+        h2.html(currentTurn + " has won!").hide().fadeIn("fast");
       }
     }
+
     if (moveCnt > 8 && win === false) {
-      alert ("The game is over. It's a draw.");
+      h2.html("The game is over. It's a draw.").hide().fadeIn("fast");
+    } else if (moveCnt <= 8 && win === false) {
+      if (currentTurn === "X") {
+        currentTurn = "O";
+      } else {
+        currentTurn = "X";
+      }
+      h2.html("It is " + currentTurn + "'s turn.").hide().fadeIn("fast");
     }
   }
 
